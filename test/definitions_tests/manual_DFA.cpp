@@ -11,14 +11,14 @@ TEST(explicit_DFA, test_def) {
     // <C   A   C
 
     vector<string> states;
-    states.push_back("S");
-    states.push_back("A");
-    states.push_back("B");
-    states.push_back("C");
+    states.emplace_back("S");
+    states.emplace_back("A");
+    states.emplace_back("B");
+    states.emplace_back("C");
 
     vector<string> letters;
-    letters.push_back("a");
-    letters.push_back("b");
+    letters.emplace_back("a");
+    letters.emplace_back("b");
 
     map<string, map<string, string>> transitions{
             {"S", {
@@ -52,5 +52,5 @@ TEST(explicit_DFA, test_def) {
     ASSERT_EQ(automaton.fromBy("B", "b"), "S");
     ASSERT_EQ(automaton.fromBy("C", "a"), "A");
     ASSERT_EQ(automaton.fromBy("C", "b"), "C");
-
+    ASSERT_TRUE(automaton.isDFA());
 }
