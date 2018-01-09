@@ -11,11 +11,8 @@
 using namespace std;
 
 template<typename T>
-class Automaton<T> {
+class Automaton {
 public:
-    virtual Automaton() {};
-
-    virtual ~Automaton() {};
 
     //region GETTERS
 
@@ -63,6 +60,11 @@ public:
      */
     virtual string getAutomatonVisualTIKZ() = 0;
 
+    /**
+     * @return string representing state that has transition from given state by given letter
+     */
+    virtual string transition(const string &state, T letter) = 0;
+
     //endregion
 
     /**
@@ -70,10 +72,21 @@ public:
      */
     virtual void printAutomatonTable() = 0;
 
+    virtual bool accepts(vector<T> word) = 0;
+
+    virtual bool isFinalState(int state) = 0;
+
+    virtual bool isFinalState(string state) = 0;
+
 protected:
     unsigned int numStates, numLetters;
     vector<T> sigma;
     vector<string> states;
+
+    /**
+     * @return -1 if state or letter index is invalid, state index after transition otherwise
+     */
+    virtual int transition(int state, int letter) = 0;
 };
 
 

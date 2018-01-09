@@ -32,9 +32,6 @@ class Automaton<long unsigned int>;
 template
 class Automaton<float>;
 
-template
-class Automaton<char[]>;
-
 //endregion
 
 template<typename T>
@@ -66,12 +63,14 @@ int Automaton<T>::getStateIndex(string state) {
 
 template<typename T>
 vector<string> Automaton<T>::getStates() {
-    return vector<string>();
+    return states;
+    //return vector<string>(states);
 }
 
 template<typename T>
 vector<T> Automaton<T>::getSigma() {
-    return vector<T>();
+    return sigma;
+    //return vector<T>(sigma);
 }
 
 

@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <DFAAutomaton.h>
 
 using namespace std;
 
 int main() {
-    return 0;
+    DFAAutomaton<string> dfa;
+    dfa.getSigma();
 }

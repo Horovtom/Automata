@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/run_definitions_tests.dir/dfa_definitions_test.cpp.o  -o run_definitions_tests ../lib/googletest-release-1.8.0/googlemock/gtest/libgtest.a ../lib/googletest-release-1.8.0/googlemock/gtest/libgtest_main.a ../../src/libautomata.a ../lib/googletest-release-1.8.0/googlemock/gtest/libgtest.a -lpthread 

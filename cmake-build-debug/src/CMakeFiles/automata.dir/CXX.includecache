@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lactosis/Documents/School/Automata/src/Automaton.cpp
+Automaton.h
+/home/lactosis/Documents/School/Automata/src/Automaton.h
+
+/home/lactosis/Documents/School/Automata/src/Automaton.h
+iostream
+-
+vector
+-
+
+/home/lactosis/Documents/School/Automata/src/DFAAutomaton.cpp
+algorithm
+-
+iostream
+-
+DFAAutomaton.h
+/home/lactosis/Documents/School/Automata/src/DFAAutomaton.h
+
+/home/lactosis/Documents/School/Automata/src/DFAAutomaton.h
+map
+-
+sstream
+-
+Automaton.h
+/home/lactosis/Documents/School/Automata/src/Automaton.h
+
+/home/lactosis/Documents/School/Automata/src/test.cpp
+test.h
+/home/lactosis/Documents/School/Automata/src/test.h
+
+/home/lactosis/Documents/School/Automata/src/test.h
+
