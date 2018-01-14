@@ -25,17 +25,18 @@ private:
 
     void interactiveGetStateRow(istream& ss, unsigned int i);
 
+protected:
+    int transition(int state, int letter) override;
 
 
 public:
 
     bool accepts(vector<T> word) override;
 
-protected:
-    int transition(int state, int letter) override;
-
-public:
     //region CONSTUCTORS
+
+    DFAAutomaton(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions, string starting,
+                 vector<string> finishing);
 
     /**
      * Interactive constructor will ask for user input and create Automaton based on that input

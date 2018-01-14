@@ -229,3 +229,24 @@ bool DFAAutomaton<T>::isFinalState(string state) {
     int stateIndex = this->getStateIndex(state);
     return this->isFinalState(stateIndex);
 }
+
+template<typename T>
+DFAAutomaton<T>::DFAAutomaton(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions,
+                              string starting, vector<string> finishing) {
+    this->states = states;
+    this->numStates = static_cast<unsigned int>(states.size());
+    this->sigma = letters;
+    this->numLetters = static_cast<unsigned int>(letters.size());
+    this->initialState = this->getStateIndex(starting);
+    for (auto &i : finishing) {
+        this->finalStates.emplace_back(this->getStateIndex(i));
+    }
+
+    for (int j = 0; j < this->states.size(); ++j) {
+        vector<int> transitionsRow;
+        for (int i = 0; i < this->sigma.size(); ++i) {
+            transitionsRow.emplace_back(this->getStateIndex(transitions[this->states[j]][this->sigma[i]]));
+        }
+        this->transitions.emplace_back(transitionsRow);
+    }
+}
