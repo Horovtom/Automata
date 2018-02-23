@@ -3,8 +3,7 @@ project(Automata)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
-add_executable(Automata ${SOURCE_FILES})
+add_executable(Automata main.cpp)
 
 include_directories(src)
 

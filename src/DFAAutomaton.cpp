@@ -65,7 +65,7 @@ void DFAAutomaton<T>::printAutomatonTable() {
 }
 
 template<typename T>
-void DFAAutomaton<T>::interactiveGetStatesSigma(istream& ss) {
+void DFAAutomaton<T>::interactiveGetStatesSigma(istream &ss) {
     int i = INTERACTIVE_MAXINPUTS;
     while (i--) {
         cout << "Number of states: ";
@@ -105,9 +105,10 @@ void DFAAutomaton<T>::interactiveGetStatesSigma(istream& ss) {
 }
 
 template<typename T>
-void DFAAutomaton<T>::interactiveGetStatesTable(istream& ss) {
+void DFAAutomaton<T>::interactiveGetStatesTable(istream &ss) {
     cout << "Now enter the states table for this automaton. Each pointer will be separated by ' '" << endl <<
-         "First element of each row should be <, >, <> or -, meaning accepting state, initial state, both or either one respectively" << endl;
+         "First element of each row should be <, >, <> or -, meaning accepting state, initial state, both or either one respectively"
+         << endl;
 
     //Print the header
     cout << "state_name I/A ";
@@ -124,7 +125,7 @@ void DFAAutomaton<T>::interactiveGetStatesTable(istream& ss) {
 }
 
 template<typename T>
-void DFAAutomaton<T>::interactiveGetStateRow(istream& ss, unsigned int i) {
+void DFAAutomaton<T>::interactiveGetStateRow(istream &ss, unsigned int i) {
     cout << this->states[i] << " ";
     string s;
     vector<int> stateLine;
@@ -166,7 +167,7 @@ template<typename T>
 string DFAAutomaton<T>::transition(const string &state, T letter) {
     int stateIndex = this->getStateIndex(state);
     int letterIndex = this->getLetterIndex(letter);
-    if(stateIndex == -1 || letterIndex == -1) {
+    if (stateIndex == -1 || letterIndex == -1) {
         return nullptr;
     }
     return this->states[transitions[stateIndex][letterIndex]];
@@ -186,7 +187,7 @@ int DFAAutomaton<T>::transition(int state, int letter) {
 }
 
 template<typename T>
-DFAAutomaton<T>::DFAAutomaton(istream& ss) {
+DFAAutomaton<T>::DFAAutomaton(istream &ss) {
     cout << "Interactive mode" << endl << "Now you will be asked to enter specifics for this automaton" << endl;
     interactiveGetStatesSigma(ss);
     interactiveGetStatesTable(ss);
@@ -233,6 +234,40 @@ bool DFAAutomaton<T>::isFinalState(string state) {
 template<typename T>
 DFAAutomaton<T>::DFAAutomaton(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions,
                               string starting, vector<string> finishing) {
+
+    initializeVariables(states, letters, transitions, starting, finishing);
+
+}
+
+
+template<typename T>
+DFAAutomaton<T>::DFAAutomaton(map<string, map<T, string>> transitions, string starting, vector<string> final) {
+    //Get all keys of the map to get to state names
+
+    vector<string> states;
+    map<T, string> that;
+    string s;
+    for (auto &transition : transitions) {
+        s = transition.first;
+        that = transition.second;
+        states.emplace_back(s);
+    }
+
+    vector<T> letters;
+    T in;
+
+    for (auto &transition : that) {
+        in = transition.first;
+        letters.emplace_back(in);
+    }
+
+    initializeVariables(states, letters, transitions, starting, final);
+}
+
+template<typename T>
+void
+DFAAutomaton<T>::initializeVariables(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions,
+                                     string starting, vector<string> finishing) {
     this->states = states;
     this->numStates = static_cast<unsigned int>(states.size());
     this->sigma = letters;

@@ -121,17 +121,17 @@ TEST(definition_compact, test_dfa) {
     string starting = "A";
     vector<string> finishing = {"S", "C"};
 
-//    DFAAutomaton<string> automaton(transitions, starting, finishing);
-//    ASSERT_EQ(automaton.transition("S", "a"), "A");
-//    ASSERT_EQ(automaton.transition("S", "b"), "A");
-//    ASSERT_EQ(automaton.transition("A", "a"), "A");
-//    ASSERT_EQ(automaton.transition("A", "b"), "B");
-//    ASSERT_EQ(automaton.transition("B", "a"), "C");
-//    ASSERT_EQ(automaton.transition("B", "b"), "S");
-//    ASSERT_EQ(automaton.transition("C", "a"), "A");
-//    ASSERT_EQ(automaton.transition("C", "b"), "C");
+    DFAAutomaton<string> automaton(transitions, starting, finishing);
+    ASSERT_EQ(automaton.transition("S", "a"), "A");
+    ASSERT_EQ(automaton.transition("S", "b"), "A");
+    ASSERT_EQ(automaton.transition("A", "a"), "A");
+    ASSERT_EQ(automaton.transition("A", "b"), "B");
+    ASSERT_EQ(automaton.transition("B", "a"), "C");
+    ASSERT_EQ(automaton.transition("B", "b"), "S");
+    ASSERT_EQ(automaton.transition("C", "a"), "A");
+    ASSERT_EQ(automaton.transition("C", "b"), "C");
 
-//    testWords(automaton);
+    testWords(automaton);
 }
 
 TEST(definition_explicit, test_dfa) {

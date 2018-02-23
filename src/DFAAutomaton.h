@@ -38,11 +38,17 @@ public:
     DFAAutomaton(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions, string starting,
                  vector<string> finishing);
 
+    DFAAutomaton(map<string, map<T, string>> transitions, string starting, vector<string> final);
+
     /**
      * Interactive constructor will ask for user input and create Automaton based on that input
      */
     DFAAutomaton() : DFAAutomaton(cin) {};
 
+    /**
+     * Implementation of an interactive constructor.
+     * @param ss Stream to get data from
+     */
     explicit DFAAutomaton(istream& ss);
 
     string getAutomatonTable() override;
@@ -52,8 +58,8 @@ public:
     string getAutomatonTableTEX() override;
 
     string getAutomatonVisualTIKZ() override;
-
     void printAutomatonTable() override;
+
     //endregion
 
     string transition(const string &state, T letter) override;
@@ -65,6 +71,11 @@ public:
     bool isFinalState(string state) override;
 
     vector<string> getAcceptingStates();
+
+    void
+    initializeVariables(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions,
+                        string starting,
+                        vector<string> finishing);
 };
 
 
