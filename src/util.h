@@ -13,7 +13,7 @@
      * @param str To this appendix will be appended
      * @param appendix This will be padded to length len and then appended to str
      */
-void padTo(std::string &str, size_t len, std::string appendix, char paddingChar = ' ');
+void padTo(std::string &str, int len, std::string appendix, char paddingChar = ' ');
 
 template<typename T>
 std::string toString(T t) {

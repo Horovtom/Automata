@@ -266,7 +266,7 @@ TEST(definition_interactive_int, test_dfa) {
 }
 
 TEST(test_automaton_1, test_dfa) {
-    DFAAutomaton<char> automaton = getDFA1();
+    DFAAutomaton<char> automaton = getDFA1char();
     ASSERT_TRUE(automaton.accepts({'b', 'b', 'b', 'a', 'b', 'a', 'b'}));
     ASSERT_FALSE(automaton.accepts({'b', 'b', 'b', 'a', 'b', 'a', 'a'}));
     ASSERT_TRUE(automaton.accepts({'a', 'b', 'a', 'a', 'b', 'b', 'a'}));

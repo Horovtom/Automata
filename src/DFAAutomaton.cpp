@@ -41,17 +41,40 @@ string DFAAutomaton<T>::getAutomatonTable() {
     /*
      * Format: < length length ...
      */
+    //TODO: ADD SUPPORT FOR CACHING THE RESULT
 
-    auto length = (size_t) this->getMaxLength() + 1;
+    auto length = this->getMaxLength() + 1;
+    auto lengthStates = this->getMaxStates() + 1;
 
     //Two initial spaces for <> column
     string result = "  ";
-    //StateNames column
-    padTo(result, length, "");
+    //State column
+    padTo(result, lengthStates, "");
 
     //Transitions columns
     for (int i = 0; i < this->sigma.size(); ++i) {
         padTo(result, length, toString<T>(this->sigma[i]));
+    }
+
+    result.append("\n");
+
+    //States
+    for (int j = 0; j < this->states.size(); ++j) {
+        if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
+            result.append("<");
+        } else result.append(" ");
+        if (this->initialState == j) {
+            result.append(">");
+        } else result.append(" ");
+
+        //State column
+        padTo(result, lengthStates, this->states[j]);
+
+        //Transitions columns
+        for (int i = 0; i < this->sigma.size(); ++i) {
+            padTo(result, length, this->states[this->transitions[j][i]]);
+        }
+        result.append("\n");
     }
 
     //TODO: IMPLEMENT
