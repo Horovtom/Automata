@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iostream>
 #include "DFAAutomaton.h"
+#include "util.h"
 
 //region template definitions
 
@@ -37,8 +38,24 @@ class DFAAutomaton<float>;
 
 template<typename T>
 string DFAAutomaton<T>::getAutomatonTable() {
+    /*
+     * Format: < length length ...
+     */
+
+    auto length = (size_t) this->getMaxLength() + 1;
+
+    //Two initial spaces for <> column
+    string result = "  ";
+    //StateNames column
+    padTo(result, length, "");
+
+    //Transitions columns
+    for (int i = 0; i < this->sigma.size(); ++i) {
+        padTo(result, length, toString<T>(this->sigma[i]));
+    }
+
     //TODO: IMPLEMENT
-    return nullptr;
+    return result;
 }
 
 template<typename T>
@@ -61,7 +78,7 @@ string DFAAutomaton<T>::getAutomatonVisualTIKZ() {
 
 template<typename T>
 void DFAAutomaton<T>::printAutomatonTable() {
-    //TODO: IMPLEMENT
+    cout << getAutomatonTable() << endl;
 }
 
 template<typename T>
@@ -285,3 +302,9 @@ DFAAutomaton<T>::initializeVariables(vector<string> states, vector<T> letters, m
         this->transitions.emplace_back(transitionsRow);
     }
 }
+
+template<typename T>
+void DFAAutomaton<T>::reduce() {
+    //TODO: IMPLEMENT
+}
+

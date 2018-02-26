@@ -76,9 +76,12 @@ public:
     initializeVariables(vector<string> states, vector<T> letters, map<string, map<T, string>> transitions,
                         string starting,
                         vector<string> finishing);
+
+    /**
+     * Reduces the automaton to the minimal form. The reduced automaton accepts the same language as the original.
+     */
+    void reduce();
+
 };
-
-
-
 
 #endif //AUTOMATA_DFAAUTOMATON_H

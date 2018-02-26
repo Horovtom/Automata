@@ -87,6 +87,12 @@ protected:
      * @return -1 if state or letter index is invalid, state index after transition otherwise
      */
     virtual int transition(int state, int letter) = 0;
+
+    int getMaxLength();
+
+    int getMaxSigma();
+
+    int getMaxStates();
 };
 
 

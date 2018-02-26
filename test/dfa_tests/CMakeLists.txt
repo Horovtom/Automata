@@ -1,7 +1,11 @@
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 set(TEST_SOURCES
-        dfa_definitions_test.cpp)
+        dfa_definitions_test.cpp
+        dfa_functionality_test.cpp
+        dfa_toString_test.cpp
+        automata_definitions.h
+        automata_definitions.cpp)
 
 set(TEST_ASSETS
         interactive_DFA_string.txt

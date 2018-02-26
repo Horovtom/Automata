@@ -3,6 +3,7 @@
 //
 
 #include "Automaton.h"
+#include "util.h"
 
 using namespace std;
 
@@ -71,6 +72,35 @@ template<typename T>
 vector<T> Automaton<T>::getSigma() {
     return sigma;
     //return vector<T>(sigma);
+}
+
+template<typename T>
+int Automaton<T>::getMaxLength() {
+    return max(getMaxSigma(), getMaxStates());
+}
+
+template<typename T>
+int Automaton<T>::getMaxSigma() {
+    int maxLen = 1;
+
+    for (int i = 0; i < this->sigma.size(); ++i) {
+        string element = toString<T>(this->sigma[i]);
+        maxLen = max(maxLen, static_cast<int>(element.length()));
+    }
+
+    return maxLen;
+}
+
+template<typename T>
+int Automaton<T>::getMaxStates() {
+    int maxLen = 1;
+
+    for (int i = 0; i < this->states.size(); ++i) {
+        string element = this->states[i];
+        maxLen = max(maxLen, static_cast<int>(element.length()));
+    }
+
+    return maxLen;
 }
 
 

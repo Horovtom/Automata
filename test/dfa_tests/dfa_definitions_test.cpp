@@ -1,6 +1,7 @@
 #include <DFAAutomaton.h>
 #include <fstream>
 #include "gtest/gtest.h"
+#include "automata_definitions.h"
 
 
 using namespace std;
@@ -10,7 +11,7 @@ void testWords(DFAAutomaton<string> automaton) {
     std::mt19937_64 eng(rd());
     std::uniform_int_distribution<> distribution(0, 5000);
 
-    cout << "Testing word: a*bab* should be in L" << endl << "Actual word generated: " << endl;
+    cout << endl << "Testing word: a*bab* should be in L" << endl << "Actual word generated: " << endl;
     vector<string> word;
     for (int j = 0; j < distribution(eng); ++j) {
         word.emplace_back("a");
@@ -262,4 +263,36 @@ TEST(definition_interactive_int, test_dfa) {
     vector<int> word2 {4, 4, 2, 2, 2, 2};
     ASSERT_FALSE(automaton.accepts(word2));
     cout << endl;
+}
+
+TEST(test_automaton_1, test_dfa) {
+    DFAAutomaton<char> automaton = getDFA1();
+    ASSERT_TRUE(automaton.accepts({'b', 'b', 'b', 'a', 'b', 'a', 'b'}));
+    ASSERT_FALSE(automaton.accepts({'b', 'b', 'b', 'a', 'b', 'a', 'a'}));
+    ASSERT_TRUE(automaton.accepts({'a', 'b', 'a', 'a', 'b', 'b', 'a'}));
+    ASSERT_FALSE(automaton.accepts({'a', 'a', 'a', 'a', 'b', 'b', 'b'}));
+
+    std::random_device rd;
+    std::mt19937_64 eng(rd());
+    std::uniform_int_distribution<> distribution(0, 2);
+    std::uniform_int_distribution<> distribution2(100, 2000);
+
+    for (int i = 0; i < 100; ++i) {
+        vector<char> word;
+        for (int j = 0; j < distribution2(eng); ++j) {
+            int res = distribution(eng);
+            if (res == 0) {
+                word.emplace_back('a');
+            } else {
+                word.emplace_back('b');
+            }
+        }
+        if (word[0] != word[word.size() - 1]) {
+            ASSERT_FALSE(automaton.accepts(word));
+        } else {
+            ASSERT_TRUE(automaton.accepts(word));
+        }
+    }
+
+    //cout << automaton.getAutomatonTable() << endl;
 }
