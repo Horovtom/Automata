@@ -48,3 +48,38 @@ TEST(to_string_test_string, test_dfa) {
 
 
 }
+
+TEST(to_HTML_test_string, test_dfa) {
+    DFAAutomaton<string> dfa = getDFA1string();
+
+    std::string s = dfa.getAutomatonTableHTML();
+
+    ASSERT_EQ(s, "<table>\n"
+            "<tr><td></td><td></td><td>abrakadabra</td><td>berries</td></tr>\n"
+            "<tr><td></td><td>1</td><td>2</td><td>1</td></tr>\n"
+            "<tr><td>&#8592;</td><td>2</td><td>2</td><td>1</td></tr>\n"
+            "<tr><td></td><td>3</td><td>7</td><td>5</td></tr>\n"
+            "<tr><td>&#8592;</td><td>4</td><td>7</td><td>4</td></tr>\n"
+            "<tr><td>&#8594;</td><td>5</td><td>2</td><td>4</td></tr>\n"
+            "<tr><td>&#8592;</td><td>6</td><td>6</td><td>3</td></tr>\n"
+            "<tr><td></td><td>7</td><td>7</td><td>4</td></tr>\n"
+            "</table>");
+
+}
+
+TEST(to_HTML_test_int, test_dfa) {
+    DFAAutomaton<int> dfa = getDFA1int();
+
+    std::string s = dfa.getAutomatonTableHTML();
+
+    ASSERT_EQ(s, "<table>\n"
+            "<tr><td></td><td></td><td>0</td><td>1</td></tr>\n"
+            "<tr><td></td><td>dodge</td><td>crit</td><td>dodge</td></tr>\n"
+            "<tr><td>&#8592;</td><td>crit</td><td>crit</td><td>dodge</td></tr>\n"
+            "<tr><td></td><td>miss</td><td>evade</td><td>parry</td></tr>\n"
+            "<tr><td>&#8592;</td><td>block</td><td>evade</td><td>block</td></tr>\n"
+            "<tr><td>&#8594;</td><td>parry</td><td>crit</td><td>block</td></tr>\n"
+            "<tr><td>&#8592;</td><td>resist</td><td>resist</td><td>miss</td></tr>\n"
+            "<tr><td></td><td>evade</td><td>evade</td><td>block</td></tr>\n"
+            "</table>");
+}

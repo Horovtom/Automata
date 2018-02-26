@@ -10,6 +10,10 @@
 
 using namespace std;
 
+enum class AutomatonType : char {
+    DFA, NFA, ENFA
+};
+
 template<typename T>
 class Automaton {
 public:
@@ -58,7 +62,7 @@ public:
     /**
      * @return string containing code for TEX library TIKZ that displays this automaton
      */
-    virtual string getAutomatonVisualTIKZ() = 0;
+    virtual string getAutomatonTIKZ() = 0;
 
     /**
      * @return string representing state that has transition from given state by given letter
@@ -78,10 +82,13 @@ public:
 
     virtual bool isFinalState(string state) = 0;
 
+    AutomatonType getType();
+
 protected:
     unsigned int numStates, numLetters;
     vector<T> sigma;
     vector<string> states;
+    AutomatonType type;
 
     /**
      * @return -1 if state or letter index is invalid, state index after transition otherwise
@@ -94,6 +101,5 @@ protected:
 
     int getMaxStates();
 };
-
 
 #endif //AUTOMATA_AUTOMATON_H

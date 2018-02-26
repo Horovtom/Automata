@@ -16,4 +16,4 @@ set(SOURCE_FILES
 
 add_library(automata ${SOURCE_FILES} ${HEADER_FILES})
 
-target_include_directories(Automata PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(Automata_driver PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

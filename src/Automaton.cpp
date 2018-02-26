@@ -103,4 +103,9 @@ int Automaton<T>::getMaxStates() {
     return maxLen;
 }
 
+template<typename T>
+AutomatonType Automaton<T>::getType() {
+    return this->type;
+}
+
 

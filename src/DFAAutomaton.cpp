@@ -41,7 +41,7 @@ string DFAAutomaton<T>::getAutomatonTable() {
     /*
      * Format: < length length ...
      */
-    //TODO: ADD SUPPORT FOR CACHING THE RESULT
+    //TODO: ADD SUPPORT FOR CACHING OF THE RESULT
 
     auto length = this->getMaxLength() + 1;
     auto lengthStates = this->getMaxStates() + 1;
@@ -77,14 +77,44 @@ string DFAAutomaton<T>::getAutomatonTable() {
         result.append("\n");
     }
 
-    //TODO: IMPLEMENT
     return result;
 }
 
 template<typename T>
 string DFAAutomaton<T>::getAutomatonTableHTML() {
-    //TODO: IMPLEMENT
-    return nullptr;
+    //TODO: ADD SUPPORT FOR CACHING OF THE RESULT
+
+    string result = "<table>\n<tr><td></td><td></td>";
+
+    //Sigma:
+    for (int i = 0; i < this->sigma.size(); ++i) {
+        result.append("<td>").append(toString<T>(this->sigma[i])).append("</td>");
+    }
+    result.append("</tr>\n");
+
+    //Transitions
+    for (int j = 0; j < this->states.size(); ++j) {
+        result.append("<tr><td>");
+        if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
+            result.append("&#8592;");
+        }
+        if (j == this->initialState) {
+            result.append("&#8594;");
+        }
+
+        //State name
+        result.append("</td><td>").append(this->states[j]).append("</td>");
+
+        //Sigma:
+        for (int i = 0; i < this->sigma.size(); ++i) {
+            result.append("<td>").append(this->states[this->transitions[j][i]]).append("</td>");
+        }
+        result.append("</tr>\n");
+    }
+
+    result.append("</table>");
+
+    return result;
 }
 
 template<typename T>
@@ -94,7 +124,7 @@ string DFAAutomaton<T>::getAutomatonTableTEX() {
 }
 
 template<typename T>
-string DFAAutomaton<T>::getAutomatonVisualTIKZ() {
+string DFAAutomaton<T>::getAutomatonTIKZ() {
     //TODO: IMPLEMENT
     return nullptr;
 }
@@ -231,6 +261,7 @@ DFAAutomaton<T>::DFAAutomaton(istream &ss) {
     cout << "Interactive mode" << endl << "Now you will be asked to enter specifics for this automaton" << endl;
     interactiveGetStatesSigma(ss);
     interactiveGetStatesTable(ss);
+    this->type = AutomatonType::DFA;
 }
 
 template<typename T>
@@ -276,7 +307,7 @@ DFAAutomaton<T>::DFAAutomaton(vector<string> states, vector<T> letters, map<stri
                               string starting, vector<string> finishing) {
 
     initializeVariables(states, letters, transitions, starting, finishing);
-
+    this->type = AutomatonType::DFA;
 }
 
 
@@ -302,6 +333,7 @@ DFAAutomaton<T>::DFAAutomaton(map<string, map<T, string>> transitions, string st
     }
 
     initializeVariables(states, letters, transitions, starting, final);
+    this->type = AutomatonType::DFA;
 }
 
 template<typename T>

@@ -57,7 +57,8 @@ public:
 
     string getAutomatonTableTEX() override;
 
-    string getAutomatonVisualTIKZ() override;
+    string getAutomatonTIKZ() override;
+
     void printAutomatonTable() override;
 
     //endregion
