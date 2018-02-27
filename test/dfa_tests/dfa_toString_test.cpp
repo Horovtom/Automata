@@ -222,7 +222,45 @@ TEST(to_TEX_test_char, test_dfa) {
 }
 
 TEST(to_TEX_test_double, test_dfa) {
-    //TODO: IMPLEMENT
+    DFAAutomaton<double> dfa = getDFA2double();
+    std::string s = dfa.getAutomatonTableTEX();
+
+    vector<string> rightAnswer = {
+            "\\begin{figure}[H]",
+            "\\centering",
+            "\\begin{tabular}{cc||c|c|c|c}",
+            "&", "&", "0.12", "&", "-6.38", "&", "0", "&", "1121334.9800213", R"(\\\hline)",
+            "$\\rightarrow$", "&", "0", "&", "1", "&", "0", "&", "0", "&", "0", "\\\\",
+            "&", "1", "&", "0", "&", "2", "&", "0", "&", "0", "\\\\",
+            "&", "2", "&", "3", "&", "0", "&", "0", "&", "0", "\\\\",
+            "&", "3", "&", "0", "&", "0", "&", "4", "&", "0", "\\\\",
+            "&", "4", "&", "0", "&", "0", "&", "0", "&", "5", "\\\\",
+            "&", "5", "&", "0", "&", "6", "&", "0", "&", "0", "\\\\",
+            "&", "6", "&", "0", "&", "0", "&", "0", "&", "7", "\\\\",
+            "$\\leftarrow$", "&", "7", "&", "7", "&", "7", "&", "7", "&", "7",
+            "\\end{tabular}",
+            "\\end{figure}"
+    };
+
+    std::vector<string> wordVector;
+    std::stringstream stringStream(s);
+    std::string line;
+    while (std::getline(stringStream, line)) {
+        std::size_t prev = 0, pos;
+        while ((pos = line.find_first_of(" \t\n", prev)) != std::string::npos) {
+            if (pos > prev)
+                wordVector.push_back(line.substr(prev, pos - prev));
+            prev = pos + 1;
+        }
+        if (prev < line.length())
+            wordVector.push_back(line.substr(prev, std::string::npos));
+    }
+
+    ASSERT_EQ(wordVector.size(), rightAnswer.size());
+
+    for (int i = 0; i < rightAnswer.size(); ++i) {
+        ASSERT_TRUE(atof(wordVector[i].c_str()) - atof(rightAnswer[i].c_str()) < (1.0 / 1000000));
+    }
 }
 
 TEST(to_string_test_char_2, test_dfa) {
