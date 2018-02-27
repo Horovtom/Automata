@@ -176,4 +176,25 @@ DFAAutomaton<char> getDFA2char();
  */
 DFAAutomaton<double> getDFA2double();
 
+/**
+ * Image test/dfa_tests/3.png
+ *
+ * This automaton is <b>reduced</b> and accepts this language: <br>
+ * <b>&Sigma; = {α, β}, L = {w | w &isin; &Sigma<sup>*</sup>, w = α<sup>*</sup>} </b>
+ *
+ * <hr>
+ * <table><tr><th colspan="2">Q<br></th><th>α</th><th>β</th></tr><tr><td>↔</td><td>0</td><td>0</td><td>1</td></tr><tr><td></td><td>1</td><td>1</td><td>1</td></tr></table>
+ * <hr>
+ * <pre>
+ * +-------+---+---+ <br>
+ * | Q     | α | β | <br>
+ * +-------+---+---+ <br>
+ * | ↔ | 0 | 0 | 1 | <br>
+ * +---+---+---+---+ <br>
+ * |   | 1 | 1 | 1 | <br>
+ * +---+---+---+---+
+ * </pre>
+ */
+DFAAutomaton<string> getDFA3string();
+
 #endif //AUTOMATA_DEFINITIONS_TESTS

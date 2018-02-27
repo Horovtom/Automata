@@ -219,3 +219,22 @@ DFAAutomaton<double> getDFA2double() {
     };
     return DFAAutomaton<double>(states, sigma, transitions, initial, final);
 }
+
+DFAAutomaton<string> getDFA3string() {
+    vector<string> sigma = {"\\alpha", "\\beta"};
+    vector<string> states = {"0", "1"};
+    vector<string> finals = {"0"};
+    string initial = "0";
+    map<string, map<string, string>> transitions = {
+            {"0", {
+                          {"\\alpha", "0"},
+                          {"\\beta", "1"}
+                  }},
+            {"1", {
+                          {"\\alpha", "1"},
+                          {"\\beta", "1"}
+                  }}
+    };
+
+    return DFAAutomaton<string>(states, sigma, transitions, initial, finals);
+}

@@ -5,7 +5,7 @@ set(TEST_SOURCES
         dfa_functionality_test.cpp
         dfa_toString_test.cpp
         automata_definitions.h
-        automata_definitions.cpp)
+        automata_definitions.cpp dfa_toTIKZcode_test.cpp)
 
 set(TEST_ASSETS
         interactive_DFA_string.txt
