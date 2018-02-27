@@ -96,11 +96,11 @@ TEST(to_TEX_test_int, test_dfa) {
             "\\begin{tabular}{cc||c|c}",
             "&", "&", "0", "&", "1", R"(\\\hline)",
             "&", "dodge", "&", "crit", "&", "dodge", "\\\\",
-            "$\\rightarrow$", "&", "crit", "&", "crit", "&", "dodge", "\\\\",
+            "$\\leftarrow", "&", "crit", "&", "crit", "&", "dodge", "\\\\",
             "&", "miss", "&", "evade", "&", "parry", "\\\\",
-            "$\\rightarrow$", "&", "block", "&", "evade", "&", "block", "\\\\",
-            "$\\leftarrow$", "&", "parry", "&", "crit", "&", "block", "\\\\",
-            "$\\rightarrow$", "&", "resist", "&", "resist", "&", "miss", "\\\\",
+            "$\\leftarrow", "&", "block", "&", "evade", "&", "block", "\\\\",
+            "$\\rightarrow", "&", "parry", "&", "crit", "&", "block", "\\\\",
+            "$\\leftarrow", "&", "resist", "&", "resist", "&", "miss", "\\\\",
             "&", "evade", "&", "evade", "&", "block",
             "\\end{tabular}",
             "\\end{figure}"
@@ -138,11 +138,11 @@ TEST(to_TEX_test_string, test_dfa) {
             "\\begin{tabular}{cc||c|c}",
             "&", "&", "abrakadabra", "&", "berries", R"(\\\hline)",
             "&", "1", "&", "2", "&", "1", "\\\\",
-            "$\\rightarrow$", "&", "2", "&", "2", "&", "1", "\\\\",
+            "$\\leftarrow", "&", "2", "&", "2", "&", "1", "\\\\",
             "&", "3", "&", "7", "&", "5", "\\\\",
-            "$\\rightarrow$", "&", "4", "&", "7", "&", "4", "\\\\",
-            "$\\leftarrow$", "&", "5", "&", "2", "&", "4", "\\\\",
-            "$\\rightarrow$", "&", "6", "&", "6", "&", "3", "\\\\",
+            "$\\leftarrow", "&", "4", "&", "7", "&", "4", "\\\\",
+            "$\\rightarrow", "&", "5", "&", "2", "&", "4", "\\\\",
+            "$\\leftarrow", "&", "6", "&", "6", "&", "3", "\\\\",
             "&", "7", "&", "7", "&", "4",
             "\\end{tabular}",
             "\\end{figure}"
@@ -167,4 +167,68 @@ TEST(to_TEX_test_string, test_dfa) {
     for (int i = 0; i < rightAnswer.size(); ++i) {
         ASSERT_EQ(wordVector[i], rightAnswer[i]);
     }
+}
+
+TEST(to_HTML_test_char, test_dfa) {
+    //TODO: IMPLEMENT
+}
+
+TEST(to_HTML_test_double, test_dfa) {
+    //TODO: IMPLEMENT
+}
+
+TEST(to_TEX_test_char, test_dfa) {
+    DFAAutomaton<char> dfa = getDFA2char();
+    std::string s = dfa.getAutomatonTableTEX();
+
+    vector<string> rightAnswer = {
+            "\\begin{figure}[H]",
+            "\\centering",
+            "\\begin{tabular}{cc||c|c|c|c}",
+            "&", "&", "l", "&", "o", "&", "i", "&", "p", R"(\\\hline)",
+            "$\\rightarrow$", "&", "0", "&", "1", "&", "0", "&", "0", "&", "0", "\\\\",
+            "&", "1", "&", "0", "&", "2", "&", "0", "&", "0", "\\\\",
+            "&", "2", "&", "3", "&", "0", "&", "0", "&", "0", "\\\\",
+            "&", "3", "&", "0", "&", "0", "&", "4", "&", "0", "\\\\",
+            "&", "4", "&", "0", "&", "0", "&", "0", "&", "5", "\\\\",
+            "&", "5", "&", "0", "&", "6", "&", "0", "&", "0", "\\\\",
+            "&", "6", "&", "0", "&", "0", "&", "0", "&", "7", "\\\\",
+            "$\\leftarrow$", "&", "7", "&", "7", "&", "7", "&", "7", "&", "7",
+            "\\end{tabular}",
+            "\\end{figure}"
+    };
+
+    cout << endl << endl << s << endl;
+
+    std::vector<string> wordVector;
+    std::stringstream stringStream(s);
+    std::string line;
+    while (std::getline(stringStream, line)) {
+        std::size_t prev = 0, pos;
+        while ((pos = line.find_first_of(" \t\n", prev)) != std::string::npos) {
+            if (pos > prev)
+                wordVector.push_back(line.substr(prev, pos - prev));
+            prev = pos + 1;
+        }
+        if (prev < line.length())
+            wordVector.push_back(line.substr(prev, std::string::npos));
+    }
+
+    ASSERT_EQ(wordVector.size(), rightAnswer.size());
+
+    for (int i = 0; i < rightAnswer.size(); ++i) {
+        ASSERT_EQ(wordVector[i], rightAnswer[i]);
+    }
+}
+
+TEST(to_TEX_test_double, test_dfa) {
+    //TODO: IMPLEMENT
+}
+
+TEST(to_string_test_char_2, test_dfa) {
+    //TODO: IMPLEMENT
+}
+
+TEST(to_string_test_double, test_dfa) {
+    //TODO: IMPLEMENT
 }

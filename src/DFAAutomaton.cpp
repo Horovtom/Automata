@@ -141,10 +141,10 @@ string DFAAutomaton<T>::getAutomatonTableTEX() {
             if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
                 result.append("$\\leftrightarrow$\t");
             } else {
-                result.append("$\\leftarrow$\t");
+                result.append("$\\rightarrow$\t");
             }
         } else if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
-            result.append("$\\rightarrow$\t");
+            result.append("$\\leftarrow$\t");
         } else {
             result.append("\t\t\t\t");
         }
