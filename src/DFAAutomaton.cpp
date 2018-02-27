@@ -119,8 +119,52 @@ string DFAAutomaton<T>::getAutomatonTableHTML() {
 
 template<typename T>
 string DFAAutomaton<T>::getAutomatonTableTEX() {
-    //TODO: IMPLEMENT
-    return nullptr;
+    //TODO: ADD CACHING OF RESULT
+    string result = "\\begin{figure}[H]\n\t\\centering\n\t\\begin{tabular}{cc|";
+    //Definition of table
+    for (int i = 0; i < this->sigma.size(); ++i) {
+        result.append("|c");
+    }
+    result.append("}\n\t\t");
+
+    //Header line
+    result.append("\t\t\t\t &");
+    for (int k = 0; k < this->sigma.size(); ++k) {
+        result.append("\t& ").append(toString<T>(this->sigma[k]));
+    }
+
+    result.append(" \\\\\\hline\n\t\t");
+
+    //State lines
+    for (int j = 0; j < this->states.size(); ++j) {
+        if (this->initialState == j) {
+            if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
+                result.append("$\\leftrightarrow$\t");
+            } else {
+                result.append("$\\leftarrow$\t");
+            }
+        } else if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
+            result.append("$\\rightarrow$\t");
+        } else {
+            result.append("\t\t\t\t");
+        }
+        result.append(" & ");
+        //StateName
+        result.append(this->states[j]);
+        //Transitions
+        for (int i = 0; i < this->sigma.size(); ++i) {
+
+            result.append("\t& ").append(this->states[this->transitions[j][i]]);
+        }
+        if (j != this->states.size() - 1)
+            result.append(" \\\\\n\t\t");
+        else
+            result.append("\n\t");
+    }
+
+    result.append("\\end{tabular}\n\\end{figure}\n");
+
+    return result;
 }
 
 template<typename T>

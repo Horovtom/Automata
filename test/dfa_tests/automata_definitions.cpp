@@ -117,3 +117,105 @@ DFAAutomaton<int> getDFA1int() {
     DFAAutomaton<int> automaton(states, sigma, transitions, "parry", {"crit", "block", "resist"});
     return automaton;
 }
+
+DFAAutomaton<char> getDFA2char() {
+
+    vector<char> sigma = {'l', 'o', 'i', 'p'};
+    vector<string> states = {"0", "1", "2", "3", "4", "5", "6", "7"};
+    std::string initial = "0";
+    std::vector<std::string> final = {"7"};
+    map<string, map<char, string>> transitions = {
+            {"0", {
+                          {'l', "1"},
+                          {'o', "0"},
+                          {'i', "0"},
+                          {'p', "0"}}},
+            {"1", {
+                          {'l', "0"},
+                          {'o', "2"},
+                          {'i', "0"},
+                          {'p', "0"}}},
+            {"2", {
+                          {'l', "3"},
+                          {'o', "0"},
+                          {'i', "0"},
+                          {'p', "0"}}},
+            {"3", {
+                          {'l', "0"},
+                          {'o', "0"},
+                          {'i', "4"},
+                          {'p', "0"}}},
+            {"4", {
+                          {'l', "0"},
+                          {'o', "0"},
+                          {'i', "0"},
+                          {'p', "5"}}},
+            {"5", {
+                          {'l', "0"},
+                          {'o', "6"},
+                          {'i', "0"},
+                          {'p', "0"}}},
+            {"6", {
+                          {'l', "0"},
+                          {'o', "0"},
+                          {'i', "0"},
+                          {'p', "7"}}},
+            {"7", {
+                          {'l', "7"},
+                          {'o', "7"},
+                          {'i', "7"},
+                          {'p', "7"}}},
+    };
+
+    return DFAAutomaton<char>(states, sigma, transitions, initial, final);
+}
+
+DFAAutomaton<double> getDFA2double() {
+    vector<double> sigma = {0.12, -6.38, 0, 1121334.9800213};
+    vector<string> states = {"0", "1", "2", "3", "4", "5", "6", "7"};
+    std::string initial = "0";
+    std::vector<std::string> final = {"7"};
+    map<string, map<double, string>> transitions = {
+            {"0", {
+                          {0.12, "1"},
+                          {-6.38, "0"},
+                          {0, "0"},
+                          {1121334.9800213, "0"}}},
+            {"1", {
+                          {0.12, "0"},
+                          {-6.38, "2"},
+                          {0, "0"},
+                          {1121334.9800213, "0"}}},
+            {"2", {
+                          {0.12, "3"},
+                          {-6.38, "0"},
+                          {0, "0"},
+                          {1121334.9800213, "0"}}},
+            {"3", {
+                          {0.12, "0"},
+                          {-6.38, "0"},
+                          {0, "4"},
+                          {1121334.9800213, "0"}}},
+            {"4", {
+                          {0.12, "0"},
+                          {-6.38, "0"},
+                          {0, "0"},
+                          {1121334.9800213, "5"}}},
+            {"5", {
+                          {0.12, "0"},
+                          {-6.38, "6"},
+                          {0, "0"},
+                          {1121334.9800213, "0"}}},
+            {"6", {
+                          {0.12, "0"},
+                          {-6.38, "0"},
+                          {0, "0"},
+                          {1121334.9800213, "7"}}},
+            {"7", {
+                          {0.12, "7"},
+                          {-6.38, "7"},
+                          {0, "7"},
+                          {1121334.9800213, "7"}}},
+    };
+    return DFAAutomaton<double>(states, sigma, transitions, initial, final);
+}
