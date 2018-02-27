@@ -96,10 +96,13 @@ string DFAAutomaton<T>::getAutomatonTableHTML() {
     for (int j = 0; j < this->states.size(); ++j) {
         result.append("<tr><td>");
         if (std::find(this->finalStates.begin(), this->finalStates.end(), j) != this->finalStates.end()) {
-            result.append("&#8592;");
-        }
-        if (j == this->initialState) {
-            result.append("&#8594;");
+            if (j == this->initialState) {
+                result.append("&harr;");
+            } else {
+                result.append("&larr;");
+            }
+        } else if (j == this->initialState) {
+            result.append("&rarr;");
         }
 
         //State name

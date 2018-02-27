@@ -146,13 +146,13 @@ DFAAutomaton<char> getDFA2char();
 
 /**
  * This outputs the same table as getDFA2, but has doubles as sigma: <br>
- * <b>&Sigma; = {0.12, -6.38, 0, 1121334.9800213}</b>
+ * <b>&Sigma; = {0.12, -6.38, 0, 213.002}</b>
  * <hr>
- * <table><tr><th colspan="2">Q<br></th><th>0.12</th><th>-6.38<br></th><th>0</th><th>1121334.9800213</th></tr><tr><td>→</td><td>0</td><td>1</td><td>0<br></td><td>0</td><td>0</td></tr><tr><td></td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td></tr><tr><td><br></td><td>2</td><td>3</td><td>0</td><td>0</td><td>0</td></tr><tr><td></td><td>3</td><td>0</td><td>0</td><td>4</td><td>0</td></tr><tr><td></td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td></tr><tr><td><br></td><td>5</td><td>0</td><td>6</td><td>0</td><td>0</td></tr><tr><td></td><td>6</td><td>0</td><td>0</td><td>0</td><td>7</td></tr><tr><td>←</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr></table>
+ * <table><tr><th colspan="2">Q<br></th><th>0.12</th><th>-6.38<br></th><th>0</th><th>213.002</th></tr><tr><td>→</td><td>0</td><td>1</td><td>0<br></td><td>0</td><td>0</td></tr><tr><td></td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td></tr><tr><td><br></td><td>2</td><td>3</td><td>0</td><td>0</td><td>0</td></tr><tr><td></td><td>3</td><td>0</td><td>0</td><td>4</td><td>0</td></tr><tr><td></td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td></tr><tr><td><br></td><td>5</td><td>0</td><td>6</td><td>0</td><td>0</td></tr><tr><td></td><td>6</td><td>0</td><td>0</td><td>0</td><td>7</td></tr><tr><td>←</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr></table>
  * <hr>
  * <pre>
  * +-------+------+-------+---+-----------------+ <br>
- * | Q     | 0.12 | -6.38 | 0 | 1121334.9800213 | <br>
+ * | Q     | 0.12 | -6.38 | 0 | 213.002         | <br>
  * +-------+------+-------+---+-----------------+ <br>
  * | → | 0 | 1    | 0     | 0 | 0               | <br>
  * +---+---+------+-------+---+-----------------+ <br>
