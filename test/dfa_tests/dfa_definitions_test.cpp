@@ -3,6 +3,7 @@
 #include "gtest/gtest.h"
 #include "automata_definitions.h"
 
+//#define VERBOSE
 
 using namespace std;
 
@@ -10,88 +11,94 @@ void testWords(DFAAutomaton<string> automaton) {
     std::random_device rd;
     std::mt19937_64 eng(rd());
     std::uniform_int_distribution<> distribution(0, 5000);
+    std::string s;
 
-    cout << endl << "Testing word: a*bab* should be in L" << endl << "Actual word generated: " << endl;
+    s.append("Testing word: a*bab* should be in L\nActual word generated: \n");
+
     vector<string> word;
     for (int j = 0; j < distribution(eng); ++j) {
         word.emplace_back("a");
-        cout << "a";
+        s.append("a");
     }
     word.emplace_back("b");
-    cout << "b";
+    s.append("b");
     word.emplace_back("a");
-    cout << "a";
+    s.append("a");
     for (int k = 0; k < distribution(eng); ++k) {
         word.emplace_back("b");
-        cout << "b";
+        s.append("b");
     }
 
-    cout << endl;
+    s.append("\n");
     ASSERT_TRUE(automaton.accepts(word));
 
-    cout << "Testing word: bbba* should not be in L" << endl << "Actual word generated: " << endl;
+    s.append("Testing word: bbba* should not be in L\nActual word generated: \n");
     vector<string> word2 = {"b", "b", "b"};
-    cout << "bbb";
+    s.append("bbb");
     for (int i = 0; i < distribution(eng); ++i) {
         word2.emplace_back("a");
-        cout << "a";
+        s.append("a");
     }
-    cout << endl;
+    s.append("\n");
     ASSERT_FALSE(automaton.accepts(word2));
 
-    cout << "Testing word: a*baaa*b should not be in L" << endl << "Actual word generated: " << endl;
+    s.append("Testing word: a*baaa*b should not be in L\nActual word generated: \n");
     vector<string> word3;
     for (int l = 0; l < distribution(eng); ++l) {
         word3.emplace_back("a");
-        cout << "a";
+        s.append("a");
     }
     word3.emplace_back("b");
-    cout << "b";
+    s.append("b");
     word3.emplace_back("a");
-    cout << "a";
+    s.append("a");
     word3.emplace_back("a");
-    cout << "a";
+    s.append("a");
     for (int m = 0; m < distribution(eng); ++m) {
         word3.emplace_back("a");
-        cout << "a";
+        s.append("a");
     }
     word3.emplace_back("b");
-    cout << "b" << endl;
+    s.append("b\n");
     ASSERT_FALSE(automaton.accepts(word3));
 
-    cout << "Testing word: abb should be in L" << endl;
+    s.append("Testing word: abb should be in L\n");
     vector<string> word4 = {"a", "b", "b"};
     ASSERT_TRUE(automaton.accepts(word4));
 
-    cout << "Testing empty word, it should not be in L" << endl;
+    s.append("Testing empty word, it should not be in L\n");
     vector<string> word5;
     ASSERT_FALSE(automaton.accepts(word5));
 
-    cout << "Testing word: b^(3*i)bab*abb should be in L" << endl << "Actual word generated: " << endl;
-    for (int s = 0; s < 3 * distribution(eng); ++s) {
+    s.append("Testing word: b^(3*i)bab*abb should be in L\nActual word generated: \n");
+    for (int r = 0; r < 3 * distribution(eng); ++r) {
         word5.emplace_back("b");
-        cout << "b";
+        s.append("b");
     }
     word5.emplace_back("b");
-    cout << "b";
+    s.append("b");
     word5.emplace_back("a");
-    cout << "a";
+    s.append("a");
     for (int n = 0; n < distribution(eng); ++n) {
         word5.emplace_back("b");
-        cout << "b";
+        s.append("b");
     }
     word5.emplace_back("a");
-    cout << "a";
+    s.append("a");
     word5.emplace_back("b");
-    cout << "b";
+    s.append("b");
     word5.emplace_back("b");
-    cout << "b" << endl;
+    s.append("b\n");
 
     ASSERT_TRUE(automaton.accepts(word5));
 
-    cout << "Testing word: ba should be in L" << endl;
+    s.append("Testing word: ba should be in L\n");
     vector<string> word6 = {"b", "a"};
     ASSERT_TRUE(automaton.accepts(word6));
+
+#ifdef VERBOSE
+    cout << s << endl;
+#endif
 }
 
 TEST(definition_compact, test_dfa) {

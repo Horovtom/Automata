@@ -172,8 +172,73 @@ string DFAAutomaton<T>::getAutomatonTableTEX() {
 
 template<typename T>
 string DFAAutomaton<T>::getAutomatonTIKZ() {
-    //TODO: IMPLEMENT
-    return nullptr;
+    std::string result = "\\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,semithick]\n";
+    //States:
+    for (int i = 0; i < this->states.size(); ++i) {
+        result.append("\t\\node[state");
+        if (this->initialState == i) {
+            result.append(",initial");
+        }
+        if (std::find(this->finalStates.begin(), this->finalStates.end(), i) != this->finalStates.end()) {
+            result.append(",accepting");
+        }
+        result.append("] (").append(std::to_string(i)).append(") ");
+
+        if (i != 0) {
+            result.append("[right of=").append(std::to_string(i - 1)).append("] ");
+        }
+        result.append("{$").append(this->states[i]).append("$};\n");
+    }
+
+    //Edges:
+    result.append("\n\t\\path");
+    for (int j = 0; j < this->states.size(); ++j) {
+        result.append("\n\t\t(").append(toString<int>(j)).append(")");
+
+        //We need a bool array
+        int sigmaSize = static_cast<int>(this->sigma.size());
+        bool sigmaUsed[sigmaSize];
+        int sigmaUsedCount = static_cast<int>(this->sigma.size());
+
+        while (sigmaUsedCount > 0) {
+            int current = -1;
+            for (int i = 0; i < sigmaSize; ++i) {
+                if (!sigmaUsed[i]) {
+                    current = i;
+                    break;
+                }
+            }
+            if (current < 0) {
+                cerr << "Error iterating in DFAAutomaton::getAutomatonTIKZ" << endl;
+                exit(-1);
+            }
+            result.append("\n\t\t\tedge ");
+            int target = this->transitions[j][current];
+            vector<int> letters = this->getLettersFromTo(j, target);
+            sigmaUsedCount -= letters.size();
+
+            if (target == j) {
+                //It is a loop
+                result.append("[loop above] ");
+            } else if (this->hasEdgeFromTo(target, j)) {
+                //It is a double edge
+                result.append("[bend left] ");
+            }
+            //TODO: IMPLEMENT
+            sigmaUsed[letters[0]] = true;
+            result.append("node {$").append(toString<T>(this->sigma[letters[0]]));
+            for (int k = 1; k < letters.size(); ++k) {
+                sigmaUsed[letters[k]] = true;
+                result.append(",").append(toString<T>(this->sigma[letters[k]]));
+            }
+            result.append("$} (").append(to_string(target)).append(")");
+        }
+    }
+
+    result.append(";\n\\end{tikzpicture}");
+
+
+    return result;
 }
 
 template<typename T>
@@ -304,6 +369,18 @@ int DFAAutomaton<T>::transition(int state, int letter) {
 }
 
 template<typename T>
+vector<int> DFAAutomaton<T>::getLettersFromTo(int from, int to) {
+    vector<int> result;
+    vector<int> transitions = this->transitions[from];
+    for (int i = 0; i < transitions.size(); ++i) {
+        if (transitions[i] == to) {
+            result.emplace_back(i);
+        }
+    }
+    return result;
+}
+
+template<typename T>
 DFAAutomaton<T>::DFAAutomaton(istream &ss) {
     cout << "Interactive mode" << endl << "Now you will be asked to enter specifics for this automaton" << endl;
     interactiveGetStatesSigma(ss);
@@ -324,7 +401,6 @@ vector<string> DFAAutomaton<T>::getAcceptingStates() {
     }
     return finals;
 }
-
 
 template<typename T>
 bool DFAAutomaton<T>::accepts(vector<T> word) {
@@ -356,7 +432,6 @@ DFAAutomaton<T>::DFAAutomaton(vector<string> states, vector<T> letters, map<stri
     initializeVariables(states, letters, transitions, starting, finishing);
     this->type = AutomatonType::DFA;
 }
-
 
 template<typename T>
 DFAAutomaton<T>::DFAAutomaton(map<string, map<T, string>> transitions, string starting, vector<string> final) {
@@ -408,5 +483,14 @@ DFAAutomaton<T>::initializeVariables(vector<string> states, vector<T> letters, m
 template<typename T>
 void DFAAutomaton<T>::reduce() {
     //TODO: IMPLEMENT
+}
+
+template<typename T>
+bool DFAAutomaton<T>::hasEdgeFromTo(int from, int to) {
+    vector<int> transitions = this->transitions[from];
+    for (int i = 0; i < transitions.size(); ++i) {
+        if (transitions[i] == to) return true;
+    }
+    return false;
 }
 

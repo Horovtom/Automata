@@ -28,7 +28,9 @@ private:
 protected:
     int transition(int state, int letter) override;
 
+    vector<int> getLettersFromTo(int from, int to) override;
 
+    bool hasEdgeFromTo(int from, int to) override;
 public:
 
     bool accepts(vector<T> word) override;

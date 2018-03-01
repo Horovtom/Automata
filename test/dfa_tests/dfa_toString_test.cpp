@@ -269,6 +269,10 @@ TEST(to_TEX_test_double, test_dfa) { // NOLINT
             "\\end{figure}"
     };
 
+#ifdef VERBOSE
+    cout << endl << s << endl;
+#endif
+
     std::vector<string> wordVector;
     std::stringstream stringStream(s);
     std::string line;

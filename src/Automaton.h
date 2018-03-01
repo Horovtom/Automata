@@ -65,7 +65,7 @@ public:
     virtual string getAutomatonTIKZ() = 0;
 
     /**
-     * @return string representing state that has transition from given state by given letter
+     * @return string representing state that is the result of transition from given state by given letter
      */
     virtual string transition(const string &state, T letter) = 0;
 
@@ -100,6 +100,22 @@ protected:
     int getMaxSigma();
 
     int getMaxStates();
+
+    /**
+     * This finds all the indices of elements of sigma that label the edge from A to B
+     * @param from Index of the state A
+     * @param to Index of the state B
+     * @return Vector of indices of sigma that label edge from A to B
+     */
+    virtual vector<int> getLettersFromTo(int from, int to) = 0;
+
+    /**
+     * Returns true if there is some letter in sigma such that we can get from A to B using this letter.
+     * @param from Index of the state A
+     * @param to Index of the state B
+     * @return Whether there is an edge from A to B
+     */
+    virtual bool hasEdgeFromTo(int from, int to) = 0;
 };
 
 #endif //AUTOMATA_AUTOMATON_H

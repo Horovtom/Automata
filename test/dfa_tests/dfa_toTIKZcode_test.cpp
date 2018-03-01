@@ -13,7 +13,7 @@ TEST(to_tikz_code_char, test_dfa) { // NOLINT
             "\\node[state,accepting]", "(1)", "[right", "of=0]", "{$2$};",
             "\\node[state]", "(2)", "[right", "of=1]", "{$3$};",
             "\\node[state,accepting]", "(3)", "[right", "of=2]", "{$4$};",
-            "\\node[initial,state]", "(4)", "[right", "of=3]", "{$5$};",
+            "\\node[state,initial]", "(4)", "[right", "of=3]", "{$5$};",
             "\\node[state,accepting]", "(5)", "[right", "of=4]", "{$6$};",
             "\\node[state]", "(6)", "[right", "of=5]", "{$7$};",
             "\\path",
@@ -24,25 +24,31 @@ TEST(to_tikz_code_char, test_dfa) { // NOLINT
             "edge", "[loop", "above]", "node", "{$a$}", "(1)",
             "edge", "[bend", "left]", "node", "{$b$}", "(0)",
             "(2)",
-            "edge", "", "node", "{$a$}", "(6)",
-            "edge", "", "node", "{$b$}", "(4)",
+            "edge", "node", "{$a$}", "(6)",
+            "edge", "node", "{$b$}", "(4)",
             "(3)",
             "edge", "[bend", "left]", "node", "{$a$}", "(6)",
             "edge", "[loop", "above]", "node", "{$b$}", "(3)",
             "(4)",
-            "edge", "", "node", "{$a$}", "(1)",
-            "edge", "", "node", "{$b$}", "(3)",
+            "edge", "node", "{$a$}", "(1)",
+            "edge", "node", "{$b$}", "(3)",
             "(5)",
             "edge", "[loop", "above]", "node", "{$a$}", "(5)",
-            "edge", "", "node", "{$b$}", "(2)",
+            "edge", "node", "{$b$}", "(2)",
             "(6)",
             "edge", "[loop", "above]", "node", "{$a$}", "(6)",
             "edge", "[bend", "left]", "node", "{$b$}", "(3);",
             "\\end{tikzpicture}"
     };
 
+    std::string s = dfa.getAutomatonTIKZ();
+
+#ifdef VERBOSE
+    cout << endl << endl << s << endl;
+#endif
+
     std::vector<string> wordVector;
-    std::stringstream stringStream(dfa.getAutomatonTIKZ());
+    std::stringstream stringStream(s);
     std::string line;
     while (std::getline(stringStream, line)) {
         std::size_t prev = 0, pos;
@@ -67,8 +73,8 @@ TEST(to_tikz_code_string, test_dfa) { // NOLINT
 
     vector<string> expected = {
             "\\begin{tikzpicture}[->,>=stealth',shorten", ">=1pt,auto,node", "distance=2.8cm,semithick]",
-            "\\node[initial,state,accepting]", "(0)", "{$0$};",
-            "\\node[state]", "(1)", "[right of=0]", "{$1$};",
+            "\\node[state,initial,accepting]", "(0)", "{$0$};",
+            "\\node[state]", "(1)", "[right", "of=0]", "{$1$};",
             "\\path",
             "(0)",
             "edge", "[loop", "above]", "node", "{$\\alpha$}", "(0)",
@@ -78,8 +84,14 @@ TEST(to_tikz_code_string, test_dfa) { // NOLINT
             "\\end{tikzpicture}"
     };
 
+    std::string s = dfa.getAutomatonTIKZ();
+
+#ifdef VERBOSE
+    cout << endl << endl << s << endl;
+#endif
+
     std::vector<string> wordVector;
-    std::stringstream stringStream(dfa.getAutomatonTIKZ());
+    std::stringstream stringStream(s);
     std::string line;
     while (std::getline(stringStream, line)) {
         std::size_t prev = 0, pos;
