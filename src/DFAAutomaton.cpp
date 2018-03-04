@@ -133,7 +133,12 @@ string DFAAutomaton<T>::getAutomatonTableTEX() {
     //Header line
     result.append("\t\t\t\t &");
     for (int k = 0; k < this->sigma.size(); ++k) {
-        result.append("\t& ").append(toString<T>(this->sigma[k]));
+        string a = toString<T>(this->sigma[k]);
+        if (a[0]=='\\'){
+            result.append("\t& $").append(a).append("$");
+        } else {
+            result.append("\t& ").append(a);
+        }
     }
 
     result.append(" \\\\\\hline\n\t\t");
@@ -153,11 +158,19 @@ string DFAAutomaton<T>::getAutomatonTableTEX() {
         }
         result.append(" & ");
         //StateName
-        result.append(this->states[j]);
+        if(this->states[j][0] == '\\') {
+            result.append("$" + this->states[j] + "$");
+        } else {
+            result.append(this->states[j]);
+        }
         //Transitions
         for (int i = 0; i < this->sigma.size(); ++i) {
-
-            result.append("\t& ").append(this->states[this->transitions[j][i]]);
+            string a = this->states[this->transitions[j][i]];
+            if (a[0] == '\\') {
+                result.append("\t& $").append(a).append("$");
+            } else {
+                result.append("\t& ").append(a);
+            }
         }
         if (j != this->states.size() - 1)
             result.append(" \\\\\n\t\t");

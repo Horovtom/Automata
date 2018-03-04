@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(Automata_driver main.cpp)
 
 include_directories(src)
+#include_directories(lib)
 
 add_subdirectory(src)
 add_subdirectory(test)
